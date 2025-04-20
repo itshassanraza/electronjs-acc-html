@@ -1,0 +1,29 @@
+{
+  "name": "inventory-management-system",
+  "productName": "Inventory Management System",
+  "version": "1.0.0",
+  "description": "A comprehensive inventory management system for small businesses",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "author": "itshassanrazai",
+  "license": "MIT",
+  "dependencies": {
+    "electron-store": "^8.1.0"
+  },
+  "devDependencies": {
+    "electron": "^22.0.0",
+    "electron-builder": "^23.6.0"
+  },
+  "build": {
+    "appId": "com.itshassanrazai.inventory",
+    "productName": "Inventory Management System",
+    "win": {
+      "target": "nsis"
+    }
+  }
+}

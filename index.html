@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Inventory System</title>
+  <link rel="stylesheet" href="./assets/css/tailwind.min.css">
+  <link rel="stylesheet" href="./assets/css/fontawesome/all.min.css">
+  <style>
+    .sidebar {
+      height: calc(100vh - 64px);
+    }
+
+    .pagination-btn {
+      @apply px-3 py-1 mx-1 rounded;
+    }
+
+    .pagination-btn.active {
+      @apply bg-blue-600 text-white;
+    }
+
+    .pagination-btn.disabled {
+      @apply opacity-50 cursor-not-allowed;
+    }
+
+    .chart-container {
+      position: relative;
+      height: 50vh;
+      max-height: 400px;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100">
+
+    
+        
+  
+
+
+  <div class="flex">
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar w-60 bg-white shadow-md p-4 sticky top-0 h-full min-h-screen overflow-y-auto" style="min-width: 240px; width: 240px;">
+      <div class="text-black">
+    
+        <div class="text-center text-sm bg-blue-200 bg-opacity-20 rounded px-1 py-3 mb-2">
+          <h1 class="text-xl font-bold tracking-wider">Accounts Book</h1>
+         
+          <span id="current-date"></span>
+        </div>
+      </div>
+      <div class="divide-black-200" ></div>
+      <div class="mb-6">
+        <h3 class="text-sm uppercase font-bold text-gray-500 px-2">Main Navigation</h3>
+        <ul class="space-y-1 mt-3">
+          <li>
+            <a href="index.html" class="flex items-center p-2 rounded bg-blue-100 text-blue-600 transition-colors duration-200">
+              <i class="fas fa-home w-5 text-center mr-3"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages/stock.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-boxes w-5 text-center mr-3"></i>
+              <span>Stock Management</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages/customers.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-users w-5 text-center mr-3"></i>
+              <span>Customers</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="mb-6">
+        <h3 class="text-sm uppercase font-bold text-gray-500 px-2">Transactions</h3>
+        <ul class="space-y-1 mt-3">
+          <li>
+            <a href="pages/purchasing.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-shopping-cart w-5 text-center mr-3"></i>
+              <span>Purchasing</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages/billing.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-receipt w-5 text-center mr-3"></i>
+              <span>Billing</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages/receipts.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-file-invoice w-5 text-center mr-3"></i>
+              <span>Receipts</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages/payments.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-money-bill-wave w-5 text-center mr-3"></i>
+              <span>Payments</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages/expenses.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-file-invoice-dollar w-5 text-center mr-3"></i>
+              <span>Expenses</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages/bills.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-clipboard-list w-5 text-center mr-3"></i>
+              <span>Bills</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="mb-6">
+        <h3 class="text-sm uppercase font-bold text-gray-500 px-2">Ledgers</h3>
+        <ul class="space-y-1 mt-3">
+          <li>
+            <a href="pages/cash-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-money-bill-alt w-5 text-center mr-3"></i>
+              <span>Cash Ledger</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages/bank-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-university w-5 text-center mr-3"></i>
+              <span>Bank Ledger</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages/trade-receivable-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-file-invoice-dollar w-5 text-center mr-3"></i>
+              <span>Trade Receivable</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages/trade-payable-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-hand-holding-usd w-5 text-center mr-3"></i>
+              <span>Trade Payable</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="text-sm uppercase font-bold text-gray-500 px-2">System</h3>
+        <ul class="space-y-1 mt-3">
+          <li>
+            <a href="pages/backup-restore.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-database w-5 text-center mr-3"></i>
+              <span>Backup & Restore</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6">
+      <h2 class="text-2xl font-semibold mb-6">Dashboard</h2>
+
+      <!-- Summary Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-700">Cash Balance</h3>
+            <span class="bg-blue-100 text-blue-600 p-2 rounded">
+              <i class="fas fa-money-bill-alt"></i>
+            </span>
+          </div>
+          <p class="text-2xl font-bold text-gray-900" id="cash-balance">₹0.00</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-700">Bank Balance</h3>
+            <span class="bg-green-100 text-green-600 p-2 rounded">
+              <i class="fas fa-university"></i>
+            </span>
+          </div>
+          <p class="text-2xl font-bold text-gray-900" id="bank-balance">₹0.00</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-700">Receivable</h3>
+            <span class="bg-yellow-100 text-yellow-600 p-2 rounded">
+              <i class="fas fa-file-invoice-dollar"></i>
+            </span>
+          </div>
+          <p class="text-2xl font-bold text-gray-900" id="receivable-balance">₹0.00</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-700">Payable</h3>
+            <span class="bg-red-100 text-red-600 p-2 rounded">
+              <i class="fas fa-hand-holding-usd"></i>
+            </span>
+          </div>
+          <p class="text-2xl font-bold text-gray-900" id="payable-balance">₹0.00</p>
+        </div>
+      </div>
+
+      <!-- Business Performance Chart -->
+      <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <h3 class="text-lg font-semibold text-gray-700 mb-4">Business Performance</h3>
+        <div class="flex mb-4">
+          <div class="flex items-center mr-4">
+            <div class="h-3 w-3 bg-blue-500 rounded-full mr-1"></div>
+            <span class="text-sm text-gray-600">Sales</span>
+          </div>
+          <div class="flex items-center mr-4">
+            <div class="h-3 w-3 bg-red-500 rounded-full mr-1"></div>
+            <span class="text-sm text-gray-600">Purchases</span>
+          </div>
+          <div class="flex items-center mr-4">
+            <div class="h-3 w-3 bg-yellow-500 rounded-full mr-1"></div>
+            <span class="text-sm text-gray-600">Expenses</span>
+          </div>
+          <div class="flex items-center">
+            <div class="h-3 w-3 bg-green-500 rounded-full mr-1"></div>
+            <span class="text-sm text-gray-600">Profit/Loss</span>
+          </div>
+        </div>
+        <div class="chart-container">
+          <canvas id="business-chart"></canvas>
+        </div>
+      </div>
+      <!-- Recent Transactions -->
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold text-gray-700">Recent Transactions</h3>
+          <div class="flex items-center space-x-2">
+            <select id="transaction-type-filter" class="text-sm border rounded p-1">
+              <option value="all">All Types</option>
+              <option value="sale">Sales</option>
+              <option value="purchase">Purchases</option>
+              <option value="expense">Expenses</option>
+              <option value="receipt">Receipts</option>
+              <option value="payment">Payments</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="min-w-full table-auto">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description
+                </th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200" id="transactions-body">
+              <tr>
+                <td colspan="4" class="px-4 py-2 text-center text-gray-500">Loading transactions...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Transactions Pagination -->
+        <div class="flex justify-center mt-4" id="transactions-pagination">
+          <!-- Will be populated by JavaScript -->
+        </div>
+      </div>
+      <!-- Recent Transactions and Stock -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- Available Stock -->
+        <div class="bg-white rounded-lg shadow-md p-6 mt-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-700">Available Stock</h3>
+            <div class="relative">
+              <input type="text" id="search-stock" placeholder="Search..." class="text-sm border rounded p-1 pl-7">
+              <div class="absolute left-2 top-1.5 text-gray-400">
+                <i class="fas fa-search"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="min-w-full table-auto">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Item</th>
+                  <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Color</th>
+                  <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity
+                  </th>
+                  <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Value</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200" id="stock-body">
+                <tr>
+                  <td colspan="4" class="px-4 py-2 text-center text-gray-500">Loading stock items...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Stock Pagination -->
+          <div class="flex justify-center mt-4" id="stock-pagination">
+            <!-- Will be populated by JavaScript -->
+          </div>
+        </div>
+
+
+        <!-- Low Stock Warning -->
+        <div class="bg-white rounded-lg shadow-md p-6 mt-6">
+          <h3 class="text-lg font-semibold text-gray-700 mb-4">Low Stock Warning</h3>
+          <div class="overflow-x-auto">
+            <table class="min-w-full table-auto">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Item</th>
+                  <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Color</th>
+                  <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current
+                    Quantity</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200" id="low-stock-body">
+                <tr>
+                  <td colspan="3" class="px-4 py-2 text-center text-gray-500">Loading low stock items...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Load JavaScript -->
+  <script src="./assets/js/chart.min.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/db.js"></script>
+  <script src="./js/dashboard.js"></script>
+
+</body>
+
+</html>

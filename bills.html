@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bills - Inventory System</title>
+  <link rel="stylesheet" href="../assets/css/tailwind.min.css">
+  <link rel="stylesheet" href="../assets/css/fontawesome/all.min.css">
+  <style>
+    .sidebar {
+      height: calc(100vh - 64px);
+    }
+    .modal {
+      transition: opacity 0.25s ease;
+    }
+    .modal-container {
+      transition: all 0.25s ease;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div class="flex">
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar w-60 bg-white shadow-md p-4 sticky top-0 h-full min-h-screen overflow-y-auto" style="min-width: 240px; width: 240px;">
+      <div class="text-black">
+    
+        <div class="text-center text-sm bg-blue-200 bg-opacity-20 rounded px-1 py-3 mb-2">
+          <h1 class="text-xl font-bold tracking-wider">Accounts Book</h1>
+         
+          <span id="current-date"></span>
+        </div>
+      </div>
+      <div class="divide-black-200" ></div>
+      <div class="mb-6">
+        <h3 class="text-sm uppercase font-bold text-gray-500 px-2">Main Navigation</h3>
+        <ul class="space-y-1 mt-3">
+          <li>
+            <a href="../index.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-home w-5 text-center mr-3"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="stock.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-boxes w-5 text-center mr-3"></i>
+              <span>Stock Management</span>
+            </a>
+          </li>
+          <li>
+            <a href="customers.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-users w-5 text-center mr-3"></i>
+              <span>Customers</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="mb-6">
+        <h3 class="text-sm uppercase font-bold text-gray-500 px-2">Transactions</h3>
+        <ul class="space-y-1 mt-3">
+          <li>
+            <a href="purchasing.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-shopping-cart w-5 text-center mr-3"></i>
+              <span>Purchasing</span>
+            </a>
+          </li>
+          <li>
+            <a href="billing.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-receipt w-5 text-center mr-3"></i>
+              <span>Billing</span>
+            </a>
+          </li>
+          <li>
+            <a href="receipts.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-file-invoice w-5 text-center mr-3"></i>
+              <span>Receipts</span>
+            </a>
+          </li>
+          <li>
+            <a href="payments.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-money-bill-wave w-5 text-center mr-3"></i>
+              <span>Payments</span>
+            </a>
+          </li>
+          <li>
+            <a href="expenses.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-file-invoice-dollar w-5 text-center mr-3"></i>
+              <span>Expenses</span>
+            </a>
+          </li>
+          <li>
+            <a href="bills.html" class="flex items-center p-2 rounded bg-blue-100 text-blue-600 transition-colors duration-200">
+              <i class="fas fa-clipboard-list w-5 text-center mr-3"></i>
+              <span>Bills</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="mb-6">
+        <h3 class="text-sm uppercase font-bold text-gray-500 px-2">Ledgers</h3>
+        <ul class="space-y-1 mt-3">
+          <li>
+            <a href="cash-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-money-bill-alt w-5 text-center mr-3"></i>
+              <span>Cash Ledger</span>
+            </a>
+          </li>
+          <li>
+            <a href="bank-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-university w-5 text-center mr-3"></i>
+              <span>Bank Ledger</span>
+            </a>
+          </li>
+          <li>
+            <a href="trade-receivable-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-file-invoice-dollar w-5 text-center mr-3"></i>
+              <span>Trade Receivable</span>
+            </a>
+          </li>
+          <li>
+            <a href="trade-payable-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-hand-holding-usd w-5 text-center mr-3"></i>
+              <span>Trade Payable</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="text-sm uppercase font-bold text-gray-500 px-2">System</h3>
+        <ul class="space-y-1 mt-3">
+          <li>
+            <a href="backup-restore.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-database w-5 text-center mr-3"></i>
+              <span>Backup & Restore</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-semibold">Bills</h2>
+        <div class="space-x-2">
+          <button id="purchase-bills-btn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            Purchase Bills
+          </button>
+          <button id="sale-bills-btn" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+            Sale Bills
+          </button>
+        </div>
+      </div>
+      
+      <!-- Current View Title -->
+      <div class="mb-6">
+        <h3 class="text-xl font-semibold" id="current-view-title">All Bills</h3>
+      </div>
+      
+      <!-- Search and filters -->
+      <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <div class="flex flex-wrap items-center space-y-2 md:space-y-0 space-x-0 md:space-x-2">
+          <div class="relative w-full md:w-64">
+            <input type="text" id="search-bills" placeholder="Search bills..." class="p-2 pl-10 border rounded w-full">
+            <div class="absolute left-3 top-2.5 text-gray-400">
+              <i class="fas fa-search"></i>
+            </div>
+          </div>
+          
+          <div class="w-full md:w-auto">
+            <select id="bill-type-filter" class="p-2 border rounded w-full">
+              <option value="all">All Types</option>
+              <option value="cash">Cash</option>
+              <option value="bank">Bank</option>
+              <option value="credit">Credit</option>
+            </select>
+          </div>
+          
+          <div class="w-full md:w-auto">
+            <select id="customer-filter" class="p-2 border rounded w-full">
+              <option value="all">All Customers/Vendors</option>
+              <!-- Will be populated by JavaScript -->
+            </select>
+          </div>
+          
+          <div class="w-full md:w-auto">
+            <input type="date" id="start-date" class="p-2 border rounded">
+          </div>
+          
+          <div class="w-full md:w-auto">
+            <input type="date" id="end-date" class="p-2 border rounded">
+          </div>
+          
+          <div class="w-full md:w-auto ml-auto">
+            <button id="apply-filter" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">
+              Filter
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Bills List -->
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="overflow-x-auto">
+          <table class="min-w-full table-auto" id="bills-table">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bill #</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer/Vendor</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200" id="bills-body">
+              <!-- Data will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- View Bill Details Modal -->
+  <div id="view-bill-modal" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+    <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+    
+    <div class="modal-container bg-white w-11/12 md:max-w-2xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
+      <div class="modal-content py-4 text-left px-6">
+        <div class="flex justify-between items-center pb-3">
+          <p class="text-xl font-bold" id="bill-title">Bill Details</p>
+          <button class="modal-close cursor-pointer z-50" id="close-view-modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div id="bill-details" class="mb-4">
+          <!-- Will be populated by JavaScript -->
+        </div>
+        
+        <h4 class="font-semibold text-lg mb-2">Items</h4>
+        <div class="overflow-x-auto mb-4">
+          <table class="min-w-full table-auto border">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Item</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Color</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+              </tr>
+            </thead>
+            <tbody id="bill-items-body">
+              <!-- Will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="border-t border-gray-200 pt-4 mb-4" id="bill-total">
+          <!-- Will be populated by JavaScript -->
+        </div>
+        
+        <div class="flex justify-end">
+          <button type="button" id="close-bill-details" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2">
+            Close
+          </button>
+          <button type="button" id="print-bill" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+            <i class="fas fa-print mr-2"></i> Print
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load JavaScript -->
+  <script src="../assets/js/chart.min.js"></script>
+  <script src="../assets/js/jspdf.umd.min.js"></script>
+  <script src="../assets/js/jspdf.plugin.autotable.min.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/db.js"></script>
+
+  <script src="../js/bills.js"></script>
+</body>
+</html>

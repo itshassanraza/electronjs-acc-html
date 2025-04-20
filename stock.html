@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Management - Inventory System</title>
+  <link rel="stylesheet" href="../assets/css/tailwind.min.css">
+  <link rel="stylesheet" href="../assets/css/fontawesome/all.min.css">
+  <style>
+    .sidebar {
+      height: calc(100vh - 64px);
+    }
+    .modal {
+      transition: opacity 0.25s ease;
+    }
+    .modal-container {
+      transition: all 0.25s ease;
+    }
+    .pagination-btn {
+      @apply px-3 py-1 mx-1 rounded;
+    }
+    .pagination-btn.active {
+      @apply bg-blue-600 text-white;
+    }
+    .pagination-btn.disabled {
+      @apply opacity-50 cursor-not-allowed;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div class="flex">
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar w-60 bg-white shadow-md p-4 sticky top-0 h-full min-h-screen overflow-y-auto" style="min-width: 240px; width: 240px;">
+      <div class="text-black">
+    
+        <div class="text-center text-sm bg-blue-200 bg-opacity-20 rounded px-1 py-3 mb-2">
+          <h1 class="text-xl font-bold tracking-wider">Accounts Book</h1>
+         
+          <span id="current-date"></span>
+        </div>
+      </div>
+      <div class="divide-black-200" ></div>
+      <div class="mb-6">
+        <h3 class="text-sm uppercase font-bold text-gray-500 px-2">Main Navigation</h3>
+        <ul class="space-y-1 mt-3">
+          <li>
+            <a href="../index.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-home w-5 text-center mr-3"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="stock.html" class="flex items-center p-2 rounded bg-blue-100 text-blue-600 transition-colors duration-200">
+              <i class="fas fa-boxes w-5 text-center mr-3"></i>
+              <span>Stock Management</span>
+            </a>
+          </li>
+          <li>
+            <a href="customers.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-users w-5 text-center mr-3"></i>
+              <span>Customers</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="mb-6">
+        <h3 class="text-sm uppercase font-bold text-gray-500 px-2">Transactions</h3>
+        <ul class="space-y-1 mt-3">
+          <li>
+            <a href="purchasing.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-shopping-cart w-5 text-center mr-3"></i>
+              <span>Purchasing</span>
+            </a>
+          </li>
+          <li>
+            <a href="billing.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-receipt w-5 text-center mr-3"></i>
+              <span>Billing</span>
+            </a>
+          </li>
+          <li>
+            <a href="receipts.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-file-invoice w-5 text-center mr-3"></i>
+              <span>Receipts</span>
+            </a>
+          </li>
+          <li>
+            <a href="payments.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-money-bill-wave w-5 text-center mr-3"></i>
+              <span>Payments</span>
+            </a>
+          </li>
+          <li>
+            <a href="expenses.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-file-invoice-dollar w-5 text-center mr-3"></i>
+              <span>Expenses</span>
+            </a>
+          </li>
+          <li>
+            <a href="bills.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-clipboard-list w-5 text-center mr-3"></i>
+              <span>Bills</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="mb-6">
+        <h3 class="text-sm uppercase font-bold text-gray-500 px-2">Ledgers</h3>
+        <ul class="space-y-1 mt-3">
+          <li>
+            <a href="cash-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-money-bill-alt w-5 text-center mr-3"></i>
+              <span>Cash Ledger</span>
+            </a>
+          </li>
+          <li>
+            <a href="bank-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-university w-5 text-center mr-3"></i>
+              <span>Bank Ledger</span>
+            </a>
+          </li>
+          <li>
+            <a href="trade-receivable-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-file-invoice-dollar w-5 text-center mr-3"></i>
+              <span>Trade Receivable</span>
+            </a>
+          </li>
+          <li>
+            <a href="trade-payable-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-hand-holding-usd w-5 text-center mr-3"></i>
+              <span>Trade Payable</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="text-sm uppercase font-bold text-gray-500 px-2">System</h3>
+        <ul class="space-y-1 mt-3">
+          <li>
+            <a href="backup-restore.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-database w-5 text-center mr-3"></i>
+              <span>Backup & Restore</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-semibold">Stock Management</h2>
+        <button id="add-stock-btn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center">
+          <i class="fas fa-plus mr-2"></i>Add Stock
+        </button>
+      </div>
+      
+      <!-- Summary Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-700">Total Items</h3>
+            <span class="bg-blue-100 text-blue-700 p-2 rounded">
+              <i class="fas fa-boxes"></i>
+            </span>
+          </div>
+          <p class="text-2xl font-bold text-gray-900" id="total-items">0</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-700">Total Value</h3>
+            <span class="bg-green-100 text-green-700 p-2 rounded">
+              <i class="fas fa-rupee-sign"></i>
+            </span>
+          </div>
+          <p class="text-2xl font-bold text-gray-900" id="total-value">₹0.00</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-700">Unique Items</h3>
+            <span class="bg-yellow-100 text-yellow-700 p-2 rounded">
+              <i class="fas fa-tag"></i>
+            </span>
+          </div>
+          <p class="text-2xl font-bold text-gray-900" id="unique-items">0</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-700">Low Stock Items</h3>
+            <span class="bg-red-100 text-red-700 p-2 rounded">
+              <i class="fas fa-exclamation-triangle"></i>
+            </span>
+          </div>
+          <p class="text-2xl font-bold text-gray-900" id="low-stock">0</p>
+        </div>
+      </div>
+      
+      <!-- Search and filters -->
+      <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div class="relative">
+            <input type="text" id="search-stock" placeholder="Search stock items..." class="p-2 pl-10 border rounded w-full">
+            <div class="absolute left-3 top-2.5 text-gray-400">
+              <i class="fas fa-search"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" for="filter-name">Name</label>
+            <select id="filter-name" class="border p-2 w-full rounded name-dropdown">
+              <option value="">All</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" for="filter-color">Color</label>
+            <select id="filter-color" class="border p-2 w-full rounded color-dropdown">
+              <option value="">All</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" for="min-quantity">Min Quantity</label>
+            <input type="number" id="min-quantity" class="border p-2 w-full rounded" min="0">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" for="max-quantity">Max Quantity</label>
+            <input type="number" id="max-quantity" class="border p-2 w-full rounded" min="0">
+          </div>
+        </div>
+        
+        <div class="flex justify-end space-x-2">
+          <button id="reset-filter" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">
+            Reset
+          </button>
+          <button id="apply-filter" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            Apply Filter
+          </button>
+        </div>
+      </div>
+      
+      <!-- Stock Summary -->
+      <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold">Stock Summary</h3>
+          <div id="summary-export-container"></div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full table-auto" id="stock-summary-table">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Item Name</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Color</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Quantity</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Average Price</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Value</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200" id="stock-summary-body">
+              <!-- Data will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Pagination and Export Controls for Summary -->
+        <div class="mt-6 flex flex-wrap justify-between">
+          <div id="summary-pagination-container"></div>
+        </div>
+      </div>
+      
+      <!-- Stock Details -->
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold">Stock Details</h3>
+          <div id="details-export-container"></div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full table-auto" id="stock-details-table">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Item Name</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Color</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200" id="stock-details-body">
+              <!-- Data will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Pagination and Export Controls for Details -->
+        <div class="mt-6 flex flex-wrap justify-between">
+          <div id="details-pagination-container"></div>
+        </div>
+      </div>
+      
+    </main>
+  </div>
+
+  <!-- Add Stock Modal -->
+  <div id="add-stock-modal" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+    <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+    
+    <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+      <div class="modal-content py-4 text-left px-6">
+        <div class="flex justify-between items-center pb-3">
+          <p class="text-xl font-bold">Add New Stock</p>
+          <button id="close-modal" class="modal-close cursor-pointer z-50">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <!-- Form content -->
+        <form id="add-stock-form">
+          <div class="mb-4 relative">
+            <div class="flex items-center">
+              <label class="block text-gray-700 text-sm font-bold mb-1" for="itemName">Item Name</label>
+            </div>
+            <div class="relative">
+              <input id="itemName" name="itemName" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter item name">
+              <div id="itemDropdown" class="hidden absolute z-10 mt-1 w-full bg-white shadow-lg rounded-md overflow-hidden">
+                <button type="button" id="newItemBtn" class="w-full px-4 py-2 text-left text-blue-600 hover:bg-blue-100 flex items-center">
+                  <i class="fas fa-plus mr-2"></i> New Item
+                </button>
+                <div id="itemList" class="max-h-32 overflow-y-auto"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <div class="flex items-center">
+              <label class="block text-gray-700 text-sm font-bold mb-1" for="itemColor">Color</label>
+            </div>
+            <div class="relative">
+              <input id="itemColor" name="itemColor" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter color">
+              <div id="colorDropdown" class="hidden absolute z-10 mt-1 w-full bg-white shadow-lg rounded-md overflow-hidden">
+                <button type="button" id="newColorBtn" class="w-full px-4 py-2 text-left text-blue-600 hover:bg-blue-100 flex items-center">
+                  <i class="fas fa-plus mr-2"></i> New Color
+                </button>
+                <div id="colorList" class="max-h-32 overflow-y-auto"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="quantity">
+              Quantity
+            </label>
+            <input id="quantity" name="quantity" type="number" min="1" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter quantity">
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="unitPrice">
+              Unit Price
+            </label>
+            <input id="unitPrice" name="unitPrice" type="number" step="0.01" min="0" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter unit price">
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="stockDate">
+              Date
+            </label>
+            <input id="stockDate" name="stockDate" type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="notes">
+              Notes (Optional)
+            </label>
+            <textarea id="notes" name="notes" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter notes"></textarea>
+          </div>
+          
+          <div class="flex justify-end">
+            <button type="button" class="modal-close bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2">
+              Cancel
+            </button>
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              Add Stock
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Stock Modal -->
+  <div id="edit-stock-modal" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+    <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+    
+    <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+      <div class="modal-content py-4 text-left px-6">
+        <div class="flex justify-between items-center pb-3">
+          <p class="text-xl font-bold">Edit Stock</p>
+          <button class="modal-close cursor-pointer z-50">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <form id="edit-stock-form">
+          <!-- Add this line inside the edit-stock-form -->
+<input type="hidden" id="editStockId">
+          <input type="hidden" id="originalStockName">
+          <input type="hidden" id="originalStockColor">
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="editStockName">
+              Item Name
+            </label>
+            <input id="editStockName" name="editStockName" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="editStockColor">
+              Color
+            </label>
+            <input id="editStockColor" name="editStockColor" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="editStockQuantity">
+              Quantity
+            </label>
+            <input id="editStockQuantity" name="editStockQuantity" type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="editStockPrice">
+              Unit Price
+            </label>
+            <input id="editStockPrice" name="editStockPrice" type="number" step="0.01" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="editStockDate">
+              Date
+            </label>
+            <input id="editStockDate" name="editStockDate" type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+          </div>
+          
+          <div class="flex justify-end">
+            <button type="button" class="modal-close bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2">
+              Cancel
+            </button>
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              Update Stock
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stock History Modal -->
+  <div id="history-modal" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+    <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+    
+    <div class="modal-container bg-white w-11/12 md:max-w-5xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
+      <div class="modal-content py-4 text-left px-6">
+        <div class="flex justify-between items-center pb-3">
+          <p class="text-xl font-bold" id="history-modal-title">Stock History</p>
+          <button class="modal-close cursor-pointer z-50">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="min-w-full table-auto" id="history-table">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Running Total</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Notes</th>
+              </tr>
+            </thead>
+            <tbody id="history-body">
+              <!-- Will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="flex justify-between mt-4">
+          <div id="history-export-container"></div>
+          <div id="history-pagination-container"></div>
+        </div>
+        
+        <div class="flex justify-end mt-4">
+          <button class="modal-close bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load JavaScript -->
+  <script src="../assets/js/chart.min.js"></script>
+  <script src="../assets/js/jspdf.umd.min.js"></script>
+  <script src="../assets/js/jspdf.plugin.autotable.min.js"></script>
+  <script src="../js/pagination-utils.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/db.js"></script>
+  <script src="../js/stock.js"></script>
+</body>
+</html>

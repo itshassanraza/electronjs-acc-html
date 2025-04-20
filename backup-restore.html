@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Backup & Restore - Inventory System</title>
+  <link rel="stylesheet" href="../assets/css/tailwind.min.css">
+  <link rel="stylesheet" href="../assets/css/fontawesome/all.min.css">
+  <style>
+    .sidebar {
+      height: calc(100vh - 64px);
+    }
+    .modal {
+      transition: opacity 0.25s ease;
+    }
+    .modal-container {
+      transition: all 0.25s ease;
+    }
+    .file-drop-area {
+      border: 2px dashed #ccc;
+      border-radius: 0.5rem;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .file-drop-area.active {
+      border-color: #3b82f6;
+      background-color: rgba(59, 130, 246, 0.05);
+    }
+    .step {
+      transition: all 0.3s ease;
+    }
+    .progress-bar {
+      transition: width 0.3s ease;
+    }
+    .log-container {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .log-entry {
+      padding: 4px 8px;
+      margin-bottom: 4px;
+      border-radius: 4px;
+    }
+    .log-info {
+      background-color: #f0f9ff;
+      border-left: 3px solid #3b82f6;
+    }
+    .log-success {
+      background-color: #f0fdf4;
+      border-left: 3px solid #22c55e;
+    }
+    .log-error {
+      background-color: #fef2f2;
+      border-left: 3px solid #ef4444;
+    }
+    .log-warning {
+      background-color: #fffbeb;
+      border-left: 3px solid #f59e0b;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+    <div class="flex">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar w-60 bg-white shadow-md p-4 sticky top-0 h-full min-h-screen overflow-y-auto" style="min-width: 240px; width: 240px;">
+          <div class="text-black">
+        
+            <div class="text-center text-sm bg-blue-200 bg-opacity-20 rounded px-1 py-3 mb-2">
+              <h1 class="text-xl font-bold tracking-wider">Accounts Book</h1>
+             
+              <span id="current-date"></span>
+            </div>
+          </div>
+          <div class="divide-black-200" ></div>
+          <div class="mb-6">
+            <h3 class="text-sm uppercase font-bold text-gray-500 px-2">Main Navigation</h3>
+            <ul class="space-y-1 mt-3">
+              <li>
+                <a href="../index.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                  <i class="fas fa-home w-5 text-center mr-3"></i>
+                  <span>Dashboard</span>
+                </a>
+              </li>
+              <li>
+                <a href="stock.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                  <i class="fas fa-boxes w-5 text-center mr-3"></i>
+                  <span>Stock Management</span>
+                </a>
+              </li>
+              <li>
+                <a href="customers.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                  <i class="fas fa-users w-5 text-center mr-3"></i>
+                  <span>Customers</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="mb-6">
+            <h3 class="text-sm uppercase font-bold text-gray-500 px-2">Transactions</h3>
+            <ul class="space-y-1 mt-3">
+              <li>
+                <a href="purchasing.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                  <i class="fas fa-shopping-cart w-5 text-center mr-3"></i>
+                  <span>Purchasing</span>
+                </a>
+              </li>
+              <li>
+                <a href="billing.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                  <i class="fas fa-receipt w-5 text-center mr-3"></i>
+                  <span>Billing</span>
+                </a>
+              </li>
+              <li>
+                <a href="receipts.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                  <i class="fas fa-file-invoice w-5 text-center mr-3"></i>
+                  <span>Receipts</span>
+                </a>
+              </li>
+              <li>
+                <a href="payments.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                  <i class="fas fa-money-bill-wave w-5 text-center mr-3"></i>
+                  <span>Payments</span>
+                </a>
+              </li>
+              <li>
+                <a href="expenses.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                  <i class="fas fa-file-invoice-dollar w-5 text-center mr-3"></i>
+                  <span>Expenses</span>
+                </a>
+              </li>
+              <li>
+                <a href="bills.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                  <i class="fas fa-clipboard-list w-5 text-center mr-3"></i>
+                  <span>Bills</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="mb-6">
+            <h3 class="text-sm uppercase font-bold text-gray-500 px-2">Ledgers</h3>
+            <ul class="space-y-1 mt-3">
+              <li>
+                <a href="cash-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                  <i class="fas fa-money-bill-alt w-5 text-center mr-3"></i>
+                  <span>Cash Ledger</span>
+                </a>
+              </li>
+              <li>
+                <a href="bank-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                  <i class="fas fa-university w-5 text-center mr-3"></i>
+                  <span>Bank Ledger</span>
+                </a>
+              </li>
+              <li>
+                <a href="trade-receivable-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                  <i class="fas fa-file-invoice-dollar w-5 text-center mr-3"></i>
+                  <span>Trade Receivable</span>
+                </a>
+              </li>
+              <li>
+                <a href="trade-payable-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                  <i class="fas fa-hand-holding-usd w-5 text-center mr-3"></i>
+                  <span>Trade Payable</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 class="text-sm uppercase font-bold text-gray-500 px-2">System</h3>
+            <ul class="space-y-1 mt-3">
+              <li>
+                <a href="backup-restore.html" class="flex items-center p-2 rounded bg-blue-100 text-blue-600 transition-colors duration-200">
+                  <i class="fas fa-database w-5 text-center mr-3"></i>
+                  <span>Backup & Restore</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+    <!-- Main Content -->
+    <main class="flex-1 p-6">
+      <h2 class="text-2xl font-semibold mb-6">Backup & Restore</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Backup Section -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex items-center mb-4">
+            <div class="bg-blue-100 text-blue-600 p-3 rounded-full mr-4">
+              <i class="fas fa-download"></i>
+            </div>
+            <h3 class="text-xl font-semibold">Backup Data</h3>
+          </div>
+          
+          <p class="text-gray-600 mb-6">
+            Create a backup of all your inventory data. The backup file can be used to restore your data in case of data loss.
+          </p>
+          
+          <div class="mb-4" id="backup-options">
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Select what to backup:
+            </label>
+            <div class="space-y-2">
+              <div class="flex items-center">
+                <input id="backup-all" name="backup-option" type="radio" class="h-4 w-4 text-blue-600 border-gray-300 rounded" checked>
+                <label for="backup-all" class="ml-2 block text-sm text-gray-700">All data</label>
+              </div>
+              <div class="flex items-center">
+                <input id="backup-stock" name="backup-option" type="radio" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
+                <label for="backup-stock" class="ml-2 block text-sm text-gray-700">Stock data only</label>
+              </div>
+              <div class="flex items-center">
+                <input id="backup-customers" name="backup-option" type="radio" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
+                <label for="backup-customers" class="ml-2 block text-sm text-gray-700">Customers data only</label>
+              </div>
+              <div class="flex items-center">
+                <input id="backup-transactions" name="backup-option" type="radio" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
+                <label for="backup-transactions" class="ml-2 block text-sm text-gray-700">Transactions data only</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="space-y-4">
+            <div class="flex items-center justify-between" id="backup-progress-container" style="display: none;">
+              <div class="w-full bg-gray-200 rounded-full h-2.5 mr-4">
+                <div class="bg-blue-600 h-2.5 rounded-full" id="backup-progress-bar" style="width: 0%"></div>
+              </div>
+              <span class="text-sm text-gray-600" id="backup-progress">0%</span>
+            </div>
+            
+            <button id="backup-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center">
+              <i class="fas fa-download mr-2"></i>
+              Create Backup
+            </button>
+          </div>
+          
+          <div class="mt-6" id="backup-history">
+            <h4 class="font-semibold text-sm text-gray-700 mb-2">Backup History</h4>
+            <div class="border rounded overflow-hidden">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Size</th>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="backup-history-body">
+                  <!-- Will be populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Restore Section -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex items-center mb-4">
+            <div class="bg-green-100 text-green-600 p-3 rounded-full mr-4">
+              <i class="fas fa-upload"></i>
+            </div>
+            <h3 class="text-xl font-semibold">Restore Data</h3>
+          </div>
+          
+          <p class="text-gray-600 mb-6">
+            Restore your inventory data from a backup file. This will replace your current data with the data from the backup file.
+          </p>
+          
+          <div class="mb-6">
+            <div id="restore-step-1" class="step">
+              <div class="file-drop-area" id="file-drop-area">
+                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-3"></i>
+                <p class="mb-2">Drag & drop your backup file here</p>
+                <p class="text-sm text-gray-500 mb-4">or</p>
+                <label class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
+                  <i class="fas fa-file-upload mr-2"></i>
+                  Browse Files
+                  <input type="file" id="restore-file-input" class="hidden" accept=".json">
+                </label>
+              </div>
+            </div>
+            
+            <div id="restore-step-2" class="step hidden">
+              <div class="p-4 border rounded mb-4">
+                <div class="flex items-center">
+                  <i class="fas fa-file-alt text-blue-600 mr-3 text-xl"></i>
+                  <div>
+                    <p class="font-medium" id="selected-file-name"></p>
+                    <p class="text-sm text-gray-500" id="selected-file-info"></p>
+                  </div>
+                  <button class="ml-auto text-gray-500 hover:text-red-600" id="remove-file-btn">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              
+              <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Restore options:
+                </label>
+                <div class="space-y-2">
+                  <div class="flex items-center">
+                    <input id="restore-replace" name="restore-option" type="radio" class="h-4 w-4 text-blue-600 border-gray-300 rounded" checked>
+                    <label for="restore-replace" class="ml-2 block text-sm text-gray-700">Replace all existing data</label>
+                  </div>
+                  <div class="flex items-center">
+                    <input id="restore-merge" name="restore-option" type="radio" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
+                    <label for="restore-merge" class="ml-2 block text-sm text-gray-700">Merge with existing data</label>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="flex items-center justify-between mb-4" id="restore-progress-container" style="display: none;">
+                <div class="w-full bg-gray-200 rounded-full h-2.5 mr-4">
+                  <div class="bg-green-600 h-2.5 rounded-full" id="restore-progress-bar" style="width: 0%"></div>
+                </div>
+                <span class="text-sm text-gray-600" id="restore-progress">0%</span>
+              </div>
+              
+              <button id="restore-btn" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center">
+                <i class="fas fa-upload mr-2"></i>
+                Start Restore
+              </button>
+            </div>
+            
+            <div id="restore-step-3" class="step hidden">
+              <div class="bg-green-50 border border-green-200 rounded p-4 mb-4">
+                <div class="flex">
+                  <div class="flex-shrink-0">
+                    <i class="fas fa-check-circle text-green-600"></i>
+                  </div>
+                  <div class="ml-3">
+                    <p class="text-sm font-medium text-green-800">Restore completed successfully</p>
+                  </div>
+                </div>
+              </div>
+              
+              <button id="restore-done-btn" class="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center">
+                <i class="fas fa-check mr-2"></i>
+                Done
+              </button>
+            </div>
+          </div>
+          
+          <div class="mt-4" id="restore-log-container">
+            <div class="flex justify-between items-center mb-2">
+              <h4 class="font-semibold text-sm text-gray-700">Restore Log</h4>
+              <button id="clear-log-btn" class="text-xs text-gray-500 hover:text-gray-700">
+                <i class="fas fa-eraser mr-1"></i>Clear
+              </button>
+            </div>
+            <div class="log-container border rounded p-2 bg-gray-50">
+              <div id="restore-log" class="text-xs font-mono">
+                <!-- Log entries will be added here -->
+                <div class="log-entry log-info">Restore system ready. Please select a backup file to begin.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- System Information -->
+      <div class="mt-6 bg-white rounded-lg shadow-md p-6">
+        <h3 class="text-lg font-semibold mb-4">System Information</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div>
+            <p class="text-sm text-gray-500">Database Version</p>
+            <p class="font-medium" id="db-version">v1.0</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Total Records</p>
+            <p class="font-medium" id="total-records">Loading...</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Last Backup</p>
+            <p class="font-medium" id="last-backup">Never</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Storage Used</p>
+            <p class="font-medium" id="storage-used">Calculating...</p>
+          </div>
+        </div>
+        
+        <!-- Clean Database Button Section -->
+        <div class="mt-6 pt-4 border-t border-gray-200">
+          <div class="flex flex-col md:flex-row items-center justify-between">
+            <div class="mb-4 md:mb-0">
+              <h4 class="font-semibold text-red-600">Danger Zone</h4>
+              <p class="text-sm text-gray-600">This action will permanently delete all data from the application.</p>
+            </div>
+            <button id="clean-db-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center">
+              <i class="fas fa-trash-alt mr-2"></i>
+              Clean Database
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div id="confirm-modal" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+    <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+    
+    <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+      <div class="modal-content py-4 text-left px-6">
+        <div class="flex justify-between items-center pb-3">
+          <p class="text-xl font-bold" id="confirm-modal-title">Confirmation</p>
+          <button id="close-confirm-modal" class="modal-close cursor-pointer z-50">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="my-5" id="confirm-modal-content">
+          <!-- Will be populated by JavaScript -->
+        </div>
+        
+        <div class="flex justify-end pt-2">
+          <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2" id="confirm-cancel-btn">
+            Cancel
+          </button>
+          <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="confirm-proceed-btn">
+            Proceed
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load JavaScript -->
+  <script src="../js/utils.js"></script>
+  <script src="../js/db.js"></script>
+
+  <script src="../js/backup-restore.js"></script>
+  <script src="../js/backup-restore-update.js"></script>
+</body>
+</html>

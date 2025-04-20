@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payments - Inventory System</title>
+  <link rel="stylesheet" href="../assets/css/tailwind.min.css">
+  <link rel="stylesheet" href="../assets/css/fontawesome/all.min.css">
+  <style>
+    .sidebar {
+      height: calc(100vh - 64px);
+    }
+    .modal {
+      transition: opacity 0.25s ease;
+    }
+    .modal-container {
+      transition: all 0.25s ease;
+    }
+    .customer-search-dropdown {
+      position: absolute;
+      z-index: 10;
+      width: 100%;
+      max-height: 200px;
+      overflow-y: auto;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.375rem;
+      display: none;
+    }
+    .customer-search-dropdown.active {
+      display: block;
+    }
+    .customer-search-item {
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+    .customer-search-item:hover {
+      background-color: #f3f4f6;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+
+    <div class="flex">
+      <!-- Sidebar Navigation -->
+      <nav class="sidebar w-60 bg-white shadow-md p-4 sticky top-0 h-full min-h-screen overflow-y-auto" style="min-width: 240px; width: 240px;">
+        <div class="text-black">
+      
+          <div class="text-center text-sm bg-blue-200 bg-opacity-20 rounded px-1 py-3 mb-2">
+            <h1 class="text-xl font-bold tracking-wider">Accounts Book</h1>
+           
+            <span id="current-date"></span>
+          </div>
+        </div>
+        <div class="divide-black-200" ></div>
+        <div class="mb-6">
+          <h3 class="text-sm uppercase font-bold text-gray-500 px-2">Main Navigation</h3>
+          <ul class="space-y-1 mt-3">
+            <li>
+              <a href="../index.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                <i class="fas fa-home w-5 text-center mr-3"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="stock.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                <i class="fas fa-boxes w-5 text-center mr-3"></i>
+                <span>Stock Management</span>
+              </a>
+            </li>
+            <li>
+              <a href="customers.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                <i class="fas fa-users w-5 text-center mr-3"></i>
+                <span>Customers</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="mb-6">
+          <h3 class="text-sm uppercase font-bold text-gray-500 px-2">Transactions</h3>
+          <ul class="space-y-1 mt-3">
+            <li>
+              <a href="purchasing.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                <i class="fas fa-shopping-cart w-5 text-center mr-3"></i>
+                <span>Purchasing</span>
+              </a>
+            </li>
+            <li>
+              <a href="billing.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                <i class="fas fa-receipt w-5 text-center mr-3"></i>
+                <span>Billing</span>
+              </a>
+            </li>
+            <li>
+              <a href="receipts.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                <i class="fas fa-file-invoice w-5 text-center mr-3"></i>
+                <span>Receipts</span>
+              </a>
+            </li>
+            <li>
+              <a href="payments.html" class="flex items-center p-2 rounded bg-blue-100 text-blue-600 transition-colors duration-200">
+                <i class="fas fa-money-bill-wave w-5 text-center mr-3"></i>
+                <span>Payments</span>
+              </a>
+            </li>
+            <li>
+              <a href="expenses.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                <i class="fas fa-file-invoice-dollar w-5 text-center mr-3"></i>
+                <span>Expenses</span>
+              </a>
+            </li>
+            <li>
+              <a href="bills.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                <i class="fas fa-clipboard-list w-5 text-center mr-3"></i>
+                <span>Bills</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="mb-6">
+          <h3 class="text-sm uppercase font-bold text-gray-500 px-2">Ledgers</h3>
+          <ul class="space-y-1 mt-3">
+            <li>
+              <a href="cash-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                <i class="fas fa-money-bill-alt w-5 text-center mr-3"></i>
+                <span>Cash Ledger</span>
+              </a>
+            </li>
+            <li>
+              <a href="bank-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                <i class="fas fa-university w-5 text-center mr-3"></i>
+                <span>Bank Ledger</span>
+              </a>
+            </li>
+            <li>
+              <a href="trade-receivable-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                <i class="fas fa-file-invoice-dollar w-5 text-center mr-3"></i>
+                <span>Trade Receivable</span>
+              </a>
+            </li>
+            <li>
+              <a href="trade-payable-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                <i class="fas fa-hand-holding-usd w-5 text-center mr-3"></i>
+                <span>Trade Payable</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-sm uppercase font-bold text-gray-500 px-2">System</h3>
+          <ul class="space-y-1 mt-3">
+            <li>
+              <a href="backup-restore.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+                <i class="fas fa-database w-5 text-center mr-3"></i>
+                <span>Backup & Restore</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-semibold">Payments</h2>
+        <div class="flex space-x-2">
+          <button id="cash-payment-btn" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 flex items-center">
+            <i class="fas fa-money-bill-alt mr-2"></i>Cash Payment
+          </button>
+          <button id="bank-payment-btn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center">
+            <i class="fas fa-university mr-2"></i>Bank Payment
+          </button>
+        </div>
+      </div>
+      
+      <!-- Summary Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-700">Today's Payments</h3>
+            <span class="bg-green-100 text-green-700 p-2 rounded">
+              <i class="fas fa-money-bill-wave"></i>
+            </span>
+          </div>
+          <p class="text-2xl font-bold text-gray-900" id="today-payments">₹0.00</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-700">This Month</h3>
+            <span class="bg-blue-100 text-blue-700 p-2 rounded">
+              <i class="fas fa-calendar-alt"></i>
+            </span>
+          </div>
+          <p class="text-2xl font-bold text-gray-900" id="month-payments">₹0.00</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-700">Total Payables</h3>
+            <span class="bg-yellow-100 text-yellow-700 p-2 rounded">
+              <i class="fas fa-hand-holding-usd"></i>
+            </span>
+          </div>
+          <p class="text-2xl font-bold text-gray-900" id="total-payables">₹0.00</p>
+        </div>
+      </div>
+      
+      <!-- Recent Payments -->
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold">Payment Transactions</h3>
+          <div class="flex space-x-2">
+            <div class="relative">
+              <input type="text" id="search-payments" placeholder="Search payments..." class="p-2 pl-10 border rounded">
+              <div class="absolute left-3 top-2.5 text-gray-400">
+                <i class="fas fa-search"></i>
+              </div>
+            </div>
+            <div>
+              <select id="filter-payments" class="p-2 border rounded">
+                <option value="all">All Payments</option>
+                <option value="cash">Cash Payments</option>
+                <option value="bank">Bank Payments</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <div class="overflow-x-auto">
+          <table class="min-w-full table-auto" id="payments-table">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vendor</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Payment Type</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200" id="payments-body">
+              <!-- Data will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Pagination Controls -->
+        <div class="mt-4 flex items-center justify-between">
+          <div class="flex items-center">
+            <span class="mr-2 text-sm text-gray-600">Rows per page:</span>
+            <select id="page-size" class="border rounded px-2 py-1 text-sm">
+              <option value="10">10</option>
+              <option value="20" selected>20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </div>
+          <div class="flex items-center" id="pagination-controls">
+            <!-- Pagination controls will be added here by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Update the cash-payment-modal to make it more responsive -->
+<div id="cash-payment-modal" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+  <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+  
+  <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto" style="max-height: 90vh;">
+    <div class="modal-content py-4 text-left px-6">
+      <div class="flex justify-between items-center pb-3">
+        <p class="text-xl font-bold">Cash Payment</p>
+        <button class="close-payment-modal modal-close cursor-pointer z-50">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <form id="cash-payment-form" data-edit-mode="false" data-payment-id="">
+        <div class="overflow-y-auto" style="max-height: calc(90vh - 180px);">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="cashPaymentCustomer">
+              Select Vendor
+            </label>
+            <div class="relative">
+              <input id="cashVendorSearch" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Search vendor...">
+              <div id="cashVendorDropdown" class="customer-search-dropdown">
+                <!-- Vendors will be populated here -->
+              </div>
+              <select id="cashPaymentCustomer" name="customerId" class="mt-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                <option value="">Select Vendor</option>
+                <!-- Will be populated by JavaScript -->
+              </select>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="cashPaymentTitle">
+              Title/Purpose
+            </label>
+            <input id="cashPaymentTitle" name="title" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter payment title/purpose" required>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="cashPaymentDescription">
+              Description
+            </label>
+            <textarea id="cashPaymentDescription" name="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter description"></textarea>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="cashPaymentAmount">
+              Amount
+            </label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <span class="text-gray-500">₹</span>
+              </div>
+              <input id="cashPaymentAmount" name="amount" type="number" step="0.01" min="0" class="shadow appearance-none border rounded w-full py-2 pl-8 pr-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="0.00" required>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="cashPaymentDate">
+              Date
+            </label>
+            <input id="cashPaymentDate" name="date" type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="cashPaymentReference">
+              Reference (Optional)
+            </label>
+            <input id="cashPaymentReference" name="reference" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter reference">
+          </div>
+        </div>
+        
+        <div class="flex justify-end pt-4">
+          <button type="button" class="close-payment-modal bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2">
+            Cancel
+          </button>
+          <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Make Payment
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Update the bank-payment-modal to make it more responsive -->
+<div id="bank-payment-modal" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+  <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+  
+  <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto" style="max-height: 90vh;">
+    <div class="modal-content py-4 text-left px-6">
+      <div class="flex justify-between items-center pb-3">
+        <p class="text-xl font-bold">Bank Payment</p>
+        <button class="close-payment-modal modal-close cursor-pointer z-50">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <form id="bank-payment-form" data-edit-mode="false" data-payment-id="">
+        <div class="overflow-y-auto" style="max-height: calc(90vh - 180px);">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="bankPaymentCustomer">
+              Select Vendor
+            </label>
+            <div class="relative">
+              <input id="bankVendorSearch" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Search vendor...">
+              <div id="bankVendorDropdown" class="customer-search-dropdown">
+                <!-- Vendors will be populated here -->
+              </div>
+              <select id="bankPaymentCustomer" name="customerId" class="mt-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                <option value="">Select Vendor</option>
+                <!-- Will be populated by JavaScript -->
+              </select>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="bankPaymentTitle">
+              Title/Purpose
+            </label>
+            <input id="bankPaymentTitle" name="title" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter payment title/purpose" required>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="bankPaymentDescription">
+              Description
+            </label>
+            <textarea id="bankPaymentDescription" name="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter description"></textarea>
+          </div>
+          
+          <div class="mb-4">
+            <div class="flex items-center">
+              <input id="paymentTypeCheque" name="paymentType" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+              <label for="paymentTypeCheque" class="ml-2 block text-sm text-gray-900">
+                Payment by Cheque
+              </label>
+            </div>
+          </div>
+          
+          <div id="chequeDetails" class="mb-4 hidden">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="bankChequeNumber">
+              Cheque Number
+            </label>
+            <input id="bankChequeNumber" name="chequeNumber" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter cheque number">
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="bankPaymentAmount">
+              Amount
+            </label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <span class="text-gray-500">₹</span>
+              </div>
+              <input id="bankPaymentAmount" name="amount" type="number" step="0.01" min="0" class="shadow appearance-none border rounded w-full py-2 pl-8 pr-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="0.00" required>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="bankPaymentDate">
+              Date
+            </label>
+            <input id="bankPaymentDate" name="date" type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="bankPaymentReference">
+              Reference (Optional)
+            </label>
+            <input id="bankPaymentReference" name="reference" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter reference">
+          </div>
+        </div>
+        
+        <div class="flex justify-end pt-4">
+          <button type="button" class="close-payment-modal bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2">
+            Cancel
+          </button>
+          <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Make Payment
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+ <!-- Update the view-payment-modal to remove the edit button -->
+<div id="view-payment-modal" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+  <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+  
+  <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+    <div class="modal-content py-4 text-left px-6">
+      <div class="flex justify-between items-center pb-3">
+        <p class="text-xl font-bold" id="payment-details-title">Payment Details</p>
+        <button id="close-view-modal" class="modal-close cursor-pointer z-50">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="mb-4 overflow-y-auto" style="max-height: 60vh;" id="payment-details-content">
+        <!-- Payment details will be populated here -->
+      </div>
+      
+      <div class="flex justify-end">
+        <button id="close-details-btn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Load JavaScript -->
+  <script src="../assets/js/chart.min.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/db.js"></script>
+
+  <script src="../js/payments.js"></script>
+</body>
+</html>

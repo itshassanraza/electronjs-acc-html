@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cash Ledger - Inventory System</title>
+  <link rel="stylesheet" href="../assets/css/tailwind.min.css">
+  <link rel="stylesheet" href="../assets/css/fontawesome/all.min.css">
+  <style>
+    .sidebar {
+      height: calc(100vh - 64px);
+    }
+    .modal {
+      transition: opacity 0.25s ease;
+    }
+    .modal-container {
+      transition: all 0.25s ease;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div class="flex">
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar w-60 bg-white shadow-md p-4 sticky top-0 h-full min-h-screen overflow-y-auto" style="min-width: 240px; width: 240px;">
+      <div class="text-black">
+    
+        <div class="text-center text-sm bg-blue-200 bg-opacity-20 rounded px-1 py-3 mb-2">
+          <h1 class="text-xl font-bold tracking-wider">Accounts Book</h1>
+         
+          <span id="current-date"></span>
+        </div>
+      </div>
+      <div class="divide-black-200" ></div>
+      <div class="mb-6">
+        <h3 class="text-sm uppercase font-bold text-gray-500 px-2">Main Navigation</h3>
+        <ul class="space-y-1 mt-3">
+          <li>
+            <a href="../index.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-home w-5 text-center mr-3"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="stock.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-boxes w-5 text-center mr-3"></i>
+              <span>Stock Management</span>
+            </a>
+          </li>
+          <li>
+            <a href="customers.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-users w-5 text-center mr-3"></i>
+              <span>Customers</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="mb-6">
+        <h3 class="text-sm uppercase font-bold text-gray-500 px-2">Transactions</h3>
+        <ul class="space-y-1 mt-3">
+          <li>
+            <a href="purchasing.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-shopping-cart w-5 text-center mr-3"></i>
+              <span>Purchasing</span>
+            </a>
+          </li>
+          <li>
+            <a href="billing.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-receipt w-5 text-center mr-3"></i>
+              <span>Billing</span>
+            </a>
+          </li>
+          <li>
+            <a href="receipts.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-file-invoice w-5 text-center mr-3"></i>
+              <span>Receipts</span>
+            </a>
+          </li>
+          <li>
+            <a href="payments.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-money-bill-wave w-5 text-center mr-3"></i>
+              <span>Payments</span>
+            </a>
+          </li>
+          <li>
+            <a href="expenses.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-file-invoice-dollar w-5 text-center mr-3"></i>
+              <span>Expenses</span>
+            </a>
+          </li>
+          <li>
+            <a href="bills.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-clipboard-list w-5 text-center mr-3"></i>
+              <span>Bills</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="mb-6">
+        <h3 class="text-sm uppercase font-bold text-gray-500 px-2">Ledgers</h3>
+        <ul class="space-y-1 mt-3">
+          <li>
+            <a href="cash-ledger.html" class="flex items-center p-2 rounded bg-blue-100 text-blue-600 transition-colors duration-200">
+              <i class="fas fa-money-bill-alt w-5 text-center mr-3"></i>
+              <span>Cash Ledger</span>
+            </a>
+          </li>
+          <li>
+            <a href="bank-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-university w-5 text-center mr-3"></i>
+              <span>Bank Ledger</span>
+            </a>
+          </li>
+          <li>
+            <a href="trade-receivable-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-file-invoice-dollar w-5 text-center mr-3"></i>
+              <span>Trade Receivable</span>
+            </a>
+          </li>
+          <li>
+            <a href="trade-payable-ledger.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-hand-holding-usd w-5 text-center mr-3"></i>
+              <span>Trade Payable</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="text-sm uppercase font-bold text-gray-500 px-2">System</h3>
+        <ul class="space-y-1 mt-3">
+          <li>
+            <a href="backup-restore.html" class="flex items-center p-2 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
+              <i class="fas fa-database w-5 text-center mr-3"></i>
+              <span>Backup & Restore</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-semibold">Cash Ledger</h2>
+        <button id="add-cash-btn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center">
+          <i class="fas fa-plus mr-2"></i>Add Cash Entry
+        </button>
+      </div>
+      
+      <!-- Cash Summary -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-700">Cash Balance</h3>
+            <span class="bg-green-100 text-green-700 p-2 rounded">
+              <i class="fas fa-money-bill-alt"></i>
+            </span>
+          </div>
+          <p class="text-2xl font-bold text-gray-900" id="cash-balance">₹0.00</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-700">Total Cash In</h3>
+            <span class="bg-blue-100 text-blue-700 p-2 rounded">
+              <i class="fas fa-arrow-down"></i>
+            </span>
+          </div>
+          <p class="text-2xl font-bold text-gray-900" id="cash-in">₹0.00</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-700">Total Cash Out</h3>
+            <span class="bg-red-100 text-red-700 p-2 rounded">
+              <i class="fas fa-arrow-up"></i>
+            </span>
+          </div>
+          <p class="text-2xl font-bold text-gray-900" id="cash-out">₹0.00</p>
+        </div>
+      </div>
+      
+      <!-- Cash Transactions -->
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold">Cash Transactions</h3>
+          <div class="flex space-x-2">
+            <div class="relative">
+              <input type="text" id="search-transactions" placeholder="Search transactions..." class="p-2 pl-10 border rounded">
+              <div class="absolute left-3 top-2.5 text-gray-400">
+                <i class="fas fa-search"></i>
+              </div>
+            </div>
+            <div>
+              <input type="date" id="filter-date-start" class="p-2 border rounded">
+            </div>
+            <div>
+              <input type="date" id="filter-date-end" class="p-2 border rounded">
+            </div>
+            <button id="apply-filter" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+              Filter
+            </button>
+          </div>
+        </div>
+        
+        <div class="overflow-x-auto">
+          <table class="min-w-full table-auto" id="cash-ledger-table">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reference</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cash In</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cash Out</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Balance</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200" id="cash-ledger-body">
+              <!-- Data will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Pagination Controls -->
+        <div class="mt-4 flex items-center justify-between">
+          <div class="flex items-center">
+            <span class="mr-2 text-sm text-gray-600">Rows per page:</span>
+            <select id="cash-page-size" class="border rounded px-2 py-1 text-sm">
+              <option value="10">10</option>
+              <option value="20" selected>20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </div>
+          <div class="flex items-center" id="cash-pagination-controls">
+            <!-- Pagination controls will be added here by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </main>
+    
+  </div>
+
+  <!-- Add Cash Entry Modal -->
+  <div id="add-cash-modal" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+    <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+    
+    <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+      <div class="modal-content py-4 text-left px-6">
+        <div class="flex justify-between items-center pb-3">
+          <p class="text-xl font-bold">Add Cash Entry</p>
+          <button class="modal-close cursor-pointer z-50" id="close-modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <form id="add-cash-form">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="transactionType">
+              Transaction Type
+            </label>
+            <div class="relative">
+              <select id="transactionType" name="transactionType" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <option value="cash-in">Cash In</option>
+                <option value="cash-out">Cash Out</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="description">
+              Description
+            </label>
+            <input id="description" name="description" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter description" required>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="reference">
+              Reference (Optional)
+            </label>
+            <input id="reference" name="reference" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter reference">
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="amount">
+              Amount
+            </label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <span class="text-gray-500">₹</span>
+              </div>
+              <input id="amount" name="amount" type="number" step="0.01" min="0" class="shadow appearance-none border rounded w-full py-2 pl-8 pr-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="0.00" required>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="date">
+              Date
+            </label>
+            <input id="date" name="date" type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+          </div>
+          
+          <div class="flex justify-end">
+            <button type="button" id="cancel-add-cash" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2">
+              Cancel
+            </button>
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              Add Entry
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/chart.min.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/db.js"></script>
+
+  <script src="../js/ledgers.js"></script>
+</body>
+</html>
